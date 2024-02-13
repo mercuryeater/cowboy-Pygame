@@ -7,8 +7,8 @@ FPS = 60
 BG = "graficos/menu/background.png"
 
 # Player settings
-PLAYER_START_X = 400
-PLAYER_START_Y = 500
+PLAYER_START_X = 350
+PLAYER_START_Y = 350
 PLAYER_SIZE = 0.5
 PLAYER_SPEED = 6
 
@@ -24,3 +24,7 @@ TUMBWEED_SIZE = 0.1
 TW_SPEED = 2.5
 TW_LIFE = 1
 
+#Demon settings
+DEMON_SIZE = 1
+DEMON_SPEED = 3
+DEMON_LIFE = 3
