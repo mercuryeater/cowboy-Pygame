@@ -24,9 +24,9 @@ instructions = [
     "No dejes que nada toque al vaquero",
     "Movimiento: w  a  s  d",
     "Disparar: barra espaciadora",
-    "1 diparo para las rodadoras",
+    "1 disparo para las plantas rodadoras",
     "3 disparos para los demonios",
-    "Los demonios aparecen donde quieran"
+    "Los demonios aparecen donde quieran",
 ]
 
 text_instructions = [
@@ -246,7 +246,6 @@ def play():
 
     all_sprites_group.add(player)
 
-    print("Entra a play")
     running = True
     start_time = pygame.time.get_ticks()
 
@@ -342,7 +341,7 @@ def info():
 
         screen.blit(background, (0, 0))
 
-        OPTIONS_TEXT = menu_font.render("This is the INFO screen", True, "#b68f40")
+        OPTIONS_TEXT = menu_font.render("INFO", True, "#b68f40")
         OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(SCREEN_WIDTH / 2, 90))
         screen.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
@@ -352,7 +351,7 @@ def info():
         OPTIONS_BACK = Button(
             image=None,
             pos=(SCREEN_WIDTH / 2, 590),
-            text_input="BACK",
+            text_input="VOLVER",
             font=menu_font,
             base_color="#eba894",
             hovering_color="white",
@@ -383,7 +382,7 @@ def end_of_game():
 
         TRY_AGAIN_BUTTON = Button(
             pos=(SCREEN_WIDTH / 2, 550),
-            text_input="TRY AGAIN?",
+            text_input="VOLVER A JUGAR?",
             font=menu_font,
             base_color="#eba894",
             hovering_color="White",
@@ -472,4 +471,4 @@ while True:
         game_state = end_of_game()
     else:
         print("Error desconocido")
-        break  
+        break
