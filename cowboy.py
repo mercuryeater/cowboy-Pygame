@@ -128,11 +128,58 @@ class Bullet(pygame.sprite.Sprite):
         self.bullet_movement()
 
 
-player = Player()
 
+class TumbleWeed(pygame.sprite.Sprite):
+
+    def __init__(self, position):
+        # Using the groups in the father constructor adds the object to those groups automatically
+        super().__init__(enemy_group, all_sprites_group)
+        self.image = pygame.image.load("graficos/enemigos/tumbleweed.gif").convert_alpha()
+        self.image = pygame.transform.rotozoom(self.image, 0, TUMBWEED_SIZE)
+
+        self.rect = self.image.get_rect()
+        self.rect.center = position
+
+        self.direction = pygame.math.Vector2()
+        self.velocity = pygame.math.Vector2()
+        self.speed = TW_SPEED
+
+        self.position = pygame.math.Vector2(position)
+
+    def hunt_player(self):
+        player_vector = pygame.math.Vector2(player.rect.center)
+        enemy_vector = pygame.math.Vector2(self.rect.center)
+        distance = self.get_vector_distance(player_vector, enemy_vector)
+
+        if distance > 0:
+            self.direction = (player_vector - enemy_vector).normalize()
+        else:
+            self.direction = pygame.math.Vector2()
+        
+        self.velocity = self.direction * self.speed
+        self.position += self.velocity
+
+        self.rect.centerx = self.position.x
+        self.rect.centery = self.position.y
+
+
+    def get_vector_distance(self, vector_1, vector_2):
+        return (vector_1 - vector_2).magnitude()
+
+    def update(self):
+        self.hunt_player()
+    
 
 all_sprites_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
+enemy_group = pygame.sprite.Group()
+
+
+player = Player()
+tumbweed = TumbleWeed((400, 400))
+
+
+
 
 all_sprites_group.add(player)
 
@@ -152,6 +199,6 @@ while running:
 
     all_sprites_group.draw(screen)
     all_sprites_group.update()
-
+    
     pygame.display.update()
     clock.tick(FPS)

@@ -12,5 +12,11 @@ PLAYER_SPEED = 6
 # Shooting - Bullet settings
 SHOOT_COOLDOWN = 20
 BULLET_SPEED = 2
-# Lifetime in ms:
+    # Lifetime in ms:
 BULLET_LIFETIME = 1250
+
+
+#Tumbleweed settings
+TUMBWEED_SIZE = 0.1
+TW_SPEED = 2.5
+
