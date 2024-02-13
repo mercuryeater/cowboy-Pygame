@@ -471,4 +471,5 @@ while True:
     elif game_state == "end_of_game":
         game_state = end_of_game()
     else:
-        break  # Sal del bucle si game_state no es ninguno de los anteriores
+        print("Error desconocido")
+        break  
