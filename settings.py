@@ -3,6 +3,9 @@ SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 720
 FPS = 60
 
+# Main Menu
+BG = "graficos/menu/background.png"
+
 # Player settings
 PLAYER_START_X = 400
 PLAYER_START_Y = 500
@@ -17,7 +20,7 @@ BULLET_LIFETIME = 1250
 
 
 #Tumbleweed settings
-TUMBWEED_SIZE = 0.09
+TUMBWEED_SIZE = 0.1
 TW_SPEED = 2.5
 TW_LIFE = 1
 
