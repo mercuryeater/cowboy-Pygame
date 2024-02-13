@@ -2,6 +2,7 @@ import pygame
 import math
 import sys
 from settings import *
+import random
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -19,6 +20,14 @@ ground_width = 200
 ground_height = 50
 
 text_surface = test_font.render("C O W B O Y", False, font_color)
+
+# Create event to spawn tumbleweed
+SPAWN_TUMBLEWEED = pygame.USEREVENT + 1
+pygame.time.set_timer(SPAWN_TUMBLEWEED, 5000)  # Spawn every 5000 ms
+
+# Create evento to increase difficulty
+SPAWN_FREQUENCY = pygame.USEREVENT + 2
+pygame.time.set_timer(SPAWN_FREQUENCY, 15000) # Happens every 15 secs
 
 
 class Player(pygame.sprite.Sprite):
@@ -146,6 +155,8 @@ class TumbleWeed(pygame.sprite.Sprite):
 
         self.position = pygame.math.Vector2(position)
 
+        self.life = TW_LIFE
+
     def hunt_player(self):
         player_vector = pygame.math.Vector2(player.rect.center)
         enemy_vector = pygame.math.Vector2(self.rect.center)
@@ -176,7 +187,9 @@ enemy_group = pygame.sprite.Group()
 
 
 player = Player()
-tumbweed = TumbleWeed((400, 400))
+
+# Initial number of tumbleweed
+tumbleweed_spawn_count = 1
 
 
 
@@ -190,10 +203,37 @@ while running:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit(0)
+        elif event.type == SPAWN_TUMBLEWEED:
+            # random quantity of Tumbleweed
+            for _ in range(random.randint(1, tumbleweed_spawn_count)):
+                # Random pos outside screen
+                if random.random() < 0.5:  # random num between 0 and 1
+                    x = random.randint(-100, 0)  # Appears Left
+                else:
+                    x = random.randint( SCREEN_WIDTH,  SCREEN_WIDTH + 100)  # Appears Right
+
+                
+                if random.random() < 0.5:  
+                    y = random.randint(-100, 0)  # Appears Top
+                else:
+                    y = random.randint( SCREEN_HEIGHT,  SCREEN_HEIGHT + 100)  # Appears Bottom
+
+                tumbleweed = TumbleWeed((x, y))
+                all_sprites_group.add(tumbleweed)
+                enemy_group.add(tumbleweed)
+        elif event.type == SPAWN_FREQUENCY:
+            if tumbleweed_spawn_count < 4:
+                tumbleweed_spawn_count += 1
 
     for j in range(0, SCREEN_HEIGHT, ground_height):
         for i in range(0, SCREEN_WIDTH, ground_width):
             screen.blit(ground, (i, j))
+    
+    for tumbleweed in enemy_group:
+        bullets_hit = pygame.sprite.spritecollide(tumbleweed, bullet_group, True)
+        for bullet in bullets_hit:
+            tumbleweed.life = 0
+            tumbleweed.kill()
 
     screen.blit(text_surface, (250, 50))
 

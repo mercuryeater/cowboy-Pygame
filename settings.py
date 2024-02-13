@@ -17,6 +17,7 @@ BULLET_LIFETIME = 1250
 
 
 #Tumbleweed settings
-TUMBWEED_SIZE = 0.1
+TUMBWEED_SIZE = 0.09
 TW_SPEED = 2.5
+TW_LIFE = 1
 
