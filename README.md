@@ -1,4 +1,4 @@
-# Proyecto: C O W B O Y
+# Proyecto: C O W B O Y - PyGame
 
 ## Descripción:
 
